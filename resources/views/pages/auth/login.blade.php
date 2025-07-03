@@ -10,7 +10,8 @@
   <body class="bg min-h-screen flex items-center justify-center font-sans">
     <div class="w-full max-w-md p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200">
       <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Login</h2>
-      <form id="loginForm" novalidate>
+      <form id="loginForm" method="POST" action="{{ route('login') }}">
+        @csrf
         <div class="mb-5">
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
           <input
@@ -20,8 +21,11 @@
             placeholder="you@example.com"
             class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             required
+            value="{{ old('email') }}"
           />
-          <p class="mt-1 text-sm text-red-500 hidden" id="emailError">Please enter a valid email.</p>
+          @error('email')
+             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="mb-5">
@@ -33,18 +37,26 @@
             placeholder="••••••••"
             class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
             required
-            minlength="6"
           />
-          <p class="mt-1 text-sm text-red-500 hidden" id="passwordError">Password must be at least 6 characters.</p>
+           @error('password')
+             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+          @enderror
         </div>
 
         <div class="flex items-center justify-between mb-6">
           <label class="flex items-center text-sm text-gray-600">
-            <input type="checkbox" class="mr-2 rounded border-gray-300" />
+            <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300" />
             Remember me
           </label>
-          <a href="#" class="text-sm text-orange-600 hover:underline">Forgot Password?</a>
+          <a href="{{ route('forgot.password') }}" class="text-sm text-orange-600 hover:underline">Forgot Password?</a>
         </div>
+
+        @if(session('error'))
+            <p class="my-2 text-sm text-center text-red-500">{{ session('error') }}</p>
+        @endif
+         @if(session('success'))
+            <p class="my-2 text-sm text-center text-green-500">{{ session('success') }}</p>
+        @endif
 
         <button
           type="submit"
@@ -55,41 +67,9 @@
 
         <p class="text-center text-sm text-gray-600 mt-6">
           Don't have an account?
-          <a href="#" class="text-orange-600 hover:underline font-medium">Register</a>
+          <a href="{{ route('signup') }}" class="text-orange-600 hover:underline font-medium">Register</a>
         </p>
       </form>
     </div>
-
-    <script>
-      const form = document.getElementById("loginForm");
-      const email = document.getElementById("email");
-      const password = document.getElementById("password");
-      const emailError = document.getElementById("emailError");
-      const passwordError = document.getElementById("passwordError");
-
-      form.addEventListener("submit", function (e) {
-        let valid = true;
-
-        // Email validation
-        if (!email.checkValidity()) {
-          emailError.classList.remove("hidden");
-          valid = false;
-        } else {
-          emailError.classList.add("hidden");
-        }
-
-        // Password validation
-        if (!password.checkValidity()) {
-          passwordError.classList.remove("hidden");
-          valid = false;
-        } else {
-          passwordError.classList.add("hidden");
-        }
-
-        if (!valid) {
-          e.preventDefault(); // Prevent form submission
-        }
-      });
-    </script>
   </body>
 </html>
