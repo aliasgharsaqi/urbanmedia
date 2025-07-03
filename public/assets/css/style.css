@@ -1,0 +1,9 @@
+route:{
+  --primary-color: #f29c23;
+  --secondary-color: #000000;
+}
+
+
+.bg {
+  background: linear-gradient(228deg, var(--primary-color) 17%, #f0612f 58%);
+}
