@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DSController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\HotelBookingController;
 use App\Http\Controllers\InsuranceController;
 use App\Http\Controllers\PendingController;
@@ -120,7 +122,14 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::match(['post', 'get'], '/forgot_password', [AuthController::class, 'forgot_password'])->name('forgot.password');
 Route::match(['post', 'get'], '/change_password', [AuthController::class, 'change_password'])->name('change.password');
 Route::match(['post', 'get'], '/verify/{hash}',   [AuthController::class, 'verify'])->name('verify');
+Route::post('/clubs', [ClubController::class, 'store'])->name('clubs.store');
+    Route::put('/clubs/{club}', [ClubController::class, 'update'])->name('clubs.update');
+    Route::delete('/clubs/{club}', [ClubController::class, 'destroy'])->name('clubs.destroy');
 
+    // Event Routes
+    Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
 
 Route::get('/forget',function(){
     return view('pages.auth.otp');

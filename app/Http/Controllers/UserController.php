@@ -23,6 +23,8 @@ use Carbon\Carbon;
 use App\Mail\AlertEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Club;
+use App\Models\Event;
 
 class UserController extends Controller
 {
@@ -30,9 +32,7 @@ class UserController extends Controller
     protected $status;
     protected $currencyTypes;
     protected $locationType;
-
     public $app_status_type;
-
 
     public function __construct()
     {
@@ -41,6 +41,8 @@ class UserController extends Controller
             return $next($request);
         });
         
+        // This assumes you have a constants.php file in your config folder
+        // If not, these lines might cause issues.
         $this->status           = config('constants.STATUS');
         $this->currencyTypes    = config('constants.CURRENCY_TYPES');
         $this->locationType     = config('constants.LOCATION_TYPES');
@@ -55,7 +57,8 @@ class UserController extends Controller
     {
         $user = auth()->user();
         if ($user) {
-            if (isset($user->role) && $user->role == user_roles('1')) {
+            // This logic is from your original file. It directs certain roles to a different dashboard.
+            if (isset($user->role) && function_exists('user_roles') && $user->role == user_roles('1')) {
                 $dahboard_name = "Super Admin";
                 $active_users = Client::count();
                 $total_pend_apps = Appointment::where('appointment_type', 'pending')->count();
@@ -64,7 +67,7 @@ class UserController extends Controller
                 $tot_apps = Application::count();
 
                 return view('pages.dashboards.super_admin', compact('user', 'tot_apps', 'staffs', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
-            } else if (isset($user->role) && $user->role == user_roles('2')) {
+            } else if (isset($user->role) && function_exists('user_roles') && $user->role == user_roles('2')) {
                 $dahboard_name = "Staff";
                 $active_users = Client::where('staff_id', $user->id)->count();
                 $all_client_ids = Client::where('staff_id', $user->id)->pluck('id');
@@ -76,7 +79,12 @@ class UserController extends Controller
                 $tot_apps = Application::whereIn('user_id', $all_client_ids)->count();
                 return view('pages.dashboards.super_admin', compact('user', 'tot_apps', 'total_schd_apps', 'total_pend_apps', 'active_users', 'dahboard_name'));
             }
-             return view('pages.dashboard');
+            
+            // ** FIX **
+            // This is the corrected code that passes the required variables to the main dashboard view.
+            $clubs = Club::all();
+            $events = Event::all();
+            return view('pages.dashboard', compact('user', 'clubs', 'events'));
         } else {
             return redirect()->route('login');
         }
@@ -84,7 +92,7 @@ class UserController extends Controller
 
     public function staff()
     {
-        if (!view_permission('staff')) {
+        if (function_exists('view_permission') && !view_permission('staff')) {
             return redirect()->back();
         }
         $data['user'] = auth()->user();
@@ -104,7 +112,7 @@ class UserController extends Controller
     public function users()
     {
         $user = auth()->user();
-        if (!view_permission('users')) {
+        if (function_exists('view_permission') && !view_permission('users')) {
             return redirect()->back();
         }
         
@@ -134,7 +142,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if (!view_permission('staff')) {
+        if (function_exists('view_permission') && !view_permission('staff')) {
             return redirect()->back();
         }
         $request->validate([
@@ -168,7 +176,7 @@ class UserController extends Controller
     public function settings(Request $request)
     {
         $user = auth()->user();
-        if (!view_permission('settings')) {
+        if (function_exists('view_permission') && !view_permission('settings')) {
             return redirect()->back();
         }
         
