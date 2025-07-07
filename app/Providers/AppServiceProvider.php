@@ -8,20 +8,21 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
+     *
+     * @return void
      */
-    public function register(): void
+    public function register()
     {
         //
     }
 
     /**
      * Bootstrap any application services.
+     *
+     * @return void
      */
-    public function boot(): void
+    public function boot()
     {
-        // Load the helpers file
-        if (file_exists(app_path('helpers/helpers.php'))) {
-            require_once app_path('helpers/helpers.php');
-        }
+        //
     }
 }
