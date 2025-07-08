@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>OTP Email Template</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
@@ -20,7 +19,7 @@
             background-color: #ffffff;
             border-radius: 8px;
             padding: 20px;
-            margin-top: 30px;
+            margin: 30px auto;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
         }
@@ -34,16 +33,7 @@
             border-radius: 8px;
             border: 1px dashed #007bff;
             color: #007bff;
-        }
-
-        .btn-verify {
-            display: inline-block;
-            padding: 10px 20px;
-            color: #ffffff;
-            background-color: #007bff;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
+            letter-spacing: 4px;
         }
 
         .footer-text {
@@ -97,36 +87,32 @@
 
 <body>
     <div class="container-sec">
-        <div class="text-center">
+        <div style="text-align: center;">
             <div><i class="fas fa-lock otp-lock"></i></div>
             <div class="welcome-section">
                 <div class="app-name">
-                    --- APP NAME ---
+                    {{ config('app.name') }}
                 </div>
                 <div class="welcome-text">
-                    Thanks for signing up !
+                    Thanks for using our service!
                 </div>
-
                 <div class="verify-text">
-                    Please Verify Your Email Address
+                    Please Verify Your Account
                 </div>
-                <div class="email-icon">
+                <div class="email-icon" style="margin-top: 15px;">
                     <i class="fas fa-envelope-open"></i>
                 </div>
-
             </div>
-            <h2>Hello, {{Auth()->User()->name ?? 'Dear'}}</h2>
+            <h2>Hello,</h2>
             <p>Your One-Time Password for verification is:</p>
             <div class="otp-code">{{ $otp }}</div>
-            <p class="mt-4">Please use this OTP to complete your verification.</p>
+            <p style="margin-top: 1.5rem;">Please use this OTP to complete your action. This code is valid for 10 minutes.</p>
         </div>
         <div class="footer-text">
-            <p>If you did not request this OTP, please <a href="#">contact us</a> immediately.</p>
-            <p>Thank you,<br>The Influencer Team</p>
+            <p>If you did not request this OTP, please ignore this email.</p>
+            <p>Thank you,<br>The {{ config('app.name') }} Team</p>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
