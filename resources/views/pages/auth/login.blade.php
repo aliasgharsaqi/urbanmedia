@@ -48,7 +48,7 @@
             <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300" />
             Remember me
           </label>
-          <a href="" class="text-sm text-orange-600 hover:underline">Forgot Password?</a>
+          <a href="{{ route('password.request') }}" class="text-sm text-orange-600 hover:underline">Forgot Password?</a>
         </div>
 
         @if(session('error'))
