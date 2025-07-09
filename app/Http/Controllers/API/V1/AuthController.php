@@ -3,58 +3,77 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\ApiResponseTrait;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    use ApiResponseTrait;
+
     public function register(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'user'
-        ]);
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors()->first());
+        }
 
-        return response()->json(['message' => 'User registered successfully!'], 201);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => 'user'
+            ]);
+            return $this->successResponse(null, 'User registered successfully!', 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Registration failed. Please try again.', 500, $e);
+        }
     }
 
     public function login(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are not correct.'],
-            ]);
+        if ($validator->fails()) {
+            return $this->errorResponse($validator->errors()->first());
         }
 
-        $token = $user->createToken('auth-token')->plainTextToken;
+        try {
+            $user = User::where('email', $request->email)->first();
 
-        return response()->json([
-            'user' => $user,
-            'token' => $token,
-        ]);
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return $this->errorResponse('The provided credentials are not correct.', 401);
+            }
+
+            $data = [
+                'user' => $user,
+                'token' => $user->createToken('auth-token')->plainTextToken,
+            ];
+
+            return $this->successResponse($data, 'User successfully logged in.');
+        } catch (\Exception $e) {
+            return $this->errorResponse('Login failed. Please try again.', 500, $e);
+        }
     }
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        try {
+            $request->user()->currentAccessToken()->delete();
+            return $this->successResponse(null, 'Successfully logged out.');
+        } catch (\Exception $e) {
+            return $this->errorResponse('Logout failed. Please try again.', 500, $e);
+        }
     }
 }

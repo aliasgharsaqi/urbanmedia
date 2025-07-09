@@ -9,7 +9,7 @@ class Event extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+   protected $fillable = [
         'client_name',
         'email',
         'date',
@@ -17,7 +17,7 @@ class Event extends Model
         'rate',
         'heading',
         'address',
-        'others',
         'entry',
+        'others',
     ];
 }
