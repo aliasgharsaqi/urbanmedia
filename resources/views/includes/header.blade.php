@@ -1,12 +1,14 @@
-<nav class="bg-white shadow-md px-6 py-4 flex items-center justify-between">
-    <div class="flex items-center">
-        <img src="/assets/images/logo.webp" alt="Logo" class="h-14 w-auto" />
+<nav class="bg-white shadow-md px-4 sm:px-6 py-3 sm:py-4 flex flex-row items-center justify-between">
+    <!-- Logo - centered on mobile, left-aligned on larger screens -->
+    <div class="order-1 sm:order-none mb-2 sm:mb-0 w-full sm:w-auto text-center sm:text-left">
+        <img src="/assets/images/logo.webp" alt="Logo" class="h-10 sm:h-14 w-auto mx-auto sm:mx-0" />
     </div>
 
-    <div class="relative">
+    <!-- User menu - right-aligned on all screens -->
+    <div class="order-2 sm:order-none relative">
         @auth
-            <button id="user-menu-button" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-3 py-2 rounded-lg transition duration-200">
-                <i class="fas fa-user"></i>
+            <button id="user-menu-button" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-3 py-1 sm:py-2 rounded-lg transition duration-200">
+                <i class="fas fa-user text-sm sm:text-base"></i>
             </button>
 
             <div id="user-menu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border z-10">
@@ -20,8 +22,8 @@
                 </div>
             </div>
         @else
-            <a href="{{ route('login') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-3 py-2 rounded-lg transition duration-200">
-                <i class="fas fa-user"></i>
+            <a href="{{ route('login') }}" class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-3 py-1 sm:py-2 rounded-lg transition duration-200">
+                <i class="fas fa-user text-sm sm:text-base"></i>
             </a>
         @endauth
     </div>
@@ -44,7 +46,9 @@
 
         // Close dropdown if clicked outside
         document.addEventListener('click', function (event) {
-            if (userMenu && !userMenu.classList.contains('hidden') && !userMenu.contains(event.target) && !userMenuButton.contains(event.target)) {
+            if (userMenu && !userMenu.classList.contains('hidden') && 
+                !userMenu.contains(event.target) && 
+                (!userMenuButton || !userMenuButton.contains(event.target))) {
                 userMenu.classList.add('hidden');
             }
         });
