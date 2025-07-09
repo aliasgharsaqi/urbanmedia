@@ -48,7 +48,7 @@
             <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300" />
             Remember me
           </label>
-          <a href="{{ route('forgot.password') }}" class="text-sm text-orange-600 hover:underline">Forgot Password?</a>
+          <a href="{{ route('password.request') }}" class="text-sm text-orange-600 hover:underline">Forgot Password?</a>
         </div>
 
         @if(session('error'))
@@ -67,7 +67,7 @@
 
         <p class="text-center text-sm text-gray-600 mt-6">
           Don't have an account?
-          <a href="{{ route('signup') }}" class="text-orange-600 hover:underline font-medium">Register</a>
+          <a href="{{ route('register') }}" class="text-orange-600 hover:underline font-medium">Register</a>
         </p>
       </form>
     </div>
