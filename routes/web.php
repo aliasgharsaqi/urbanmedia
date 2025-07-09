@@ -135,3 +135,6 @@ Route::get('/detail',function(){
 Route::get('/d',function(){
     return view('pages.client.alert');
 });
+Route::get('/dashboard',function(){
+    return view('pages.dashboard');
+});
