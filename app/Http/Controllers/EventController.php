@@ -27,8 +27,10 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'You must be logged in to create an event.');
+        if (!$user->role == 'User' && $user->status == 2 ) {
+            return redirect()->route('clubs')->with('error', 'You must be logged in to create an event.');
+        }elseif ($user->role == 'User' && $user->status != 3) {
+            //logout
         }
 
         $validatedData = $request->validate([
