@@ -14,22 +14,28 @@
         <table class="min-w-full text-sm text-left text-gray-700 whitespace-nowrap">
             <thead class="bg-orange-100 text-xs uppercase text-black">
                 <tr>
-                    <th class="px-4 sm:px-6 py-3">Name</th>
-                    <th class="px-4 sm:px-6 py-3">Email</th>
+                    <th class="px-4 sm:px-6 py-3">Image</th>
+                    <th class="px-4 sm:px-6 py-3">Heading/Title</th>
+                    <th class="px-4 sm:px-6 py-3">Expected Guest</th>
                     <th class="px-4 sm:px-6 py-3">Date</th>
-                    <th class="px-4 sm:px-6 py-3">Rate</th>
-                    <th class="px-4 sm:px-6 py-3">Heading</th>
+                    <th class="px-4 sm:px-6 py-3">Entry</th>
                     <th class="px-4 sm:px-6 py-3 text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($events as $event)
                 <tr class="border-t hover:bg-gray-50">
-                    <td class="px-4 sm:px-6 py-3">{{ $event->client_name }}</td>
-                    <td class="px-4 sm:px-6 py-3">{{ $event->email }}</td>
+                    <td class="px-4 sm:px-6 py-3">
+                        @if ($event->event_image)
+                        <img src="{{ Storage::url($event->event_image) }}" alt="Event Image" style="max-width: 100px; height: auto;">
+                        @else
+                        No Image
+                        @endif
+                    </td>
+                    <td class="px-4 sm:px-6 py-3">{{ $event->heading ?? '' }}</td>
+                    <td class="px-4 sm:px-6 py-3">{{ $event->expected_guest ?? '' }}</td>
                     <td class="px-4 sm:px-6 py-3">{{ \Carbon\Carbon::parse($event->date)->format('M d, Y') }}</td>
-                    <td class="px-4 sm:px-6 py-3">${{ number_format($event->rate, 2) }}</td>
-                    <td class="px-4 sm:px-6 py-3">{{ $event->heading }}</td>
+                    <td class="px-4 sm:px-6 py-3">{{ $event->entry ?? '' }}</td>
                     <td class="px-4 sm:px-6 py-3 text-center space-y-2 sm:space-x-2 sm:space-y-0">
                         <a href="{{ route('events.edit', $event) }}" class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 hover:bg-blue-200 font-medium text-xs sm:text-sm rounded-full">
                             <i class="fas fa-edit"></i> <span>Edit</span>

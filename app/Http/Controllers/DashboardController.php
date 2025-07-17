@@ -8,7 +8,13 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $events = Event::latest()->take(4)->get();
+        $user = auth()->user();
+        if ($user->role == 'Admin') {
+            $events = Event::latest()->get();
+        } else {
+            $events = Event::where('user_id', $user->id)->latest()->get();
+        }
+
         return view('pages.dashboard', compact('events'));
     }
 
