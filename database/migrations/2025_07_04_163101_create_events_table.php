@@ -10,15 +10,15 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('client_name');
-            $table->string('email');
+            $table->foreignId('user_id');
+            $table->string('event_image');
             $table->date('date');
             $table->time('time');
-            $table->decimal('rate', 8, 2);
+            $table->string('expected_guest');
             $table->string('heading');
-            $table->string('address');
-            $table->text('others')->nullable();
+            $table->text('address');
             $table->string('entry');
+            $table->text('desc')->nullable();
             $table->timestamps();
         });
     }

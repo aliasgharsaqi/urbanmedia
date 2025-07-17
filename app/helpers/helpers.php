@@ -27,10 +27,8 @@ function user_roles($role_no)
 {
     switch ($role_no) {
         case 1:
-            return 'Super Admin';
+            return 'Admin';
         case 2:
-            return 'Staff';
-        case 3:
             return 'User';
         default:
             return false;
@@ -54,12 +52,10 @@ function active_users()
 function user_role_no($role_no)
 {
     switch ($role_no) {
-        case 'Super Admin':
+        case 'Admin':
             return 1;
-        case 'Staff':
-            return 2;
         case 'User':
-            return 3;
+            return 2;
         default:
             return false;
     }
@@ -69,43 +65,11 @@ function view_permission($page_name)
 {
     $user_role = Auth()->User()->role;
     switch ($user_role) {
-        case 'Super Admin':
+        case 'Admin':
             switch ($page_name) {
                 case 'index':
-                case 'staff':
-                case 'settings':
-                case 'vfs':
-                case 'categories':
-                case 'countries':
-                case 'application':
-                // case 'tracking_application':
-                case 'schedule_appointment':
-                case 'pending_appointment':
-                case 'insurance':
-                case 'hotel_booking':
-                case 'client':
-                case 'ds_160':
-                case 'software_status':
-                    return true;
-                default:
-                    return false;
-            }
-
-        case 'Staff':
-            switch ($page_name) {
-                case 'index':
-                case 'settings':
-                case 'vfs':
-                case 'categories':
-                case 'countries':
-                case 'application':
-                case 'tracking_application':
-                case 'schedule_appointment':
-                case 'pending_appointment':
-                case 'insurance':
-                case 'hotel_booking':
-                case 'client':
-                case 'ds_160':
+                case 'clubs':
+                case 'events':
                     return true;
                 default:
                     return false;
@@ -114,11 +78,11 @@ function view_permission($page_name)
         case 'User':
             switch ($page_name) {
                 case 'index':
+                case 'events':
                     return true;
                 default:
                     return false;
             }
-
         default:
             return false;
     }
