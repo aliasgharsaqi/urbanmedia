@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Professional Signup</title>
+    <title>Grab Our Services</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -13,10 +14,20 @@
     <link rel="stylesheet" href="{{ asset('assets/css/cards.css') }}" />
 
 </head>
+
 <body class="bg-gray-100 font-sans flex flex-col items-center justify-center min-h-screen py-10">
     <div class="w-full max-w-3xl p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200">
-        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Create Account</h2>
-        <form id="signupForm" method="POST" action="{{ route('register') }}">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Request Our Services 🚀</h2>
+        @if (session('success'))
+            <div class="mb-4 p-4 text-sm font-medium text-green-800 bg-green-100 rounded-lg" role="alert">
+                {{ session('success') }}
+            </div>
+        @elseif (session('error'))
+            <div class="mb-4 p-4 text-sm font-medium text-red-800 bg-red-100 rounded-lg" role="alert">
+                {{ session('error') }}
+            </div>
+        @endif
+        <form id="serviceRequestForm" method="POST" action="{{ route('service.request.store') }}">
             @csrf
             <div class="mb-5">
                 <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
@@ -29,30 +40,19 @@
                 <input type="email" id="email" name="email" placeholder="you@example.com" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required value="{{ old('email') }}" />
                 @error('email')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
             </div>
-            
+
             <div class="mb-5">
-                <label for="club" class="block text-sm font-medium text-gray-700 mb-1">Club</label>
+                <label for="club" class="block text-sm font-medium text-gray-700 mb-1">Club / Organization Name</label>
                 <input type="text" id="club" name="club" placeholder="Your Club Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" value="{{ old('club') }}" />
                 @error('club')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
             </div>
-            
+
             <div class="mb-5">
                 <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location</label>
                 <input type="text" id="location" name="location" placeholder="City, Country" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" value="{{ old('location') }}" />
                 @error('location')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
             </div>
 
-            <div class="mb-5">
-                <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                <input type="password" id="password" name="password" placeholder="Minimum 6 characters" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required />
-                @error('password')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
-            </div>
-
-            <div class="mb-5">
-                <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Re-enter your password" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required />
-            </div>
-            
             <div class="mb-6">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Services of Interest</label>
                 <div class="space-y-3">
@@ -80,30 +80,49 @@
                 @error('services')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
             </div>
 
-            <div class="checkbox-container">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="terms" name="terms" required />
-                    <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="privacy" name="privacy" required />
-                    <label for="privacy">I accept the <a href="#">Privacy Policy</a></label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="newsletter" name="newsletter" />
-                    <label for="newsletter"><a href="#">Subscribe</a> to newsletter</label>
-                </div>
-            </div>
-
-            <button type="submit" class="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition duration-200">
-                Sign Up
+            <button id="openModalBtn" type="button" class="w-full mt-6 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-lg transition duration-200">
+                Submit Service Request
             </button>
-
-            <p class="text-center text-sm text-gray-600 mt-6">
-                Already have an account?
-                <a href="{{ route('login') }}" class="text-orange-600 hover:underline font-medium">Login</a>
-            </p>
         </form>
     </div>
+
+    <div id="confirmationModal" class="fixed inset-0 bg-gray-900 bg-opacity-60 items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-sm mx-auto mt-20">
+            <h3 class="text-xl font-bold text-center text-gray-800 mb-4">Confirm Submission</h3>
+            <p class="text-center text-gray-600 mb-6">Are you sure you want to submit this service request?</p>
+            <div class="flex justify-center gap-4">
+                <button id="cancelBtn" type="button" class="px-6 py-2 rounded-lg text-gray-700 bg-gray-200 hover:bg-gray-300 font-semibold">
+                    Cancel
+                </button>
+                <button id="confirmBtn" type="button" class="px-6 py-2 rounded-lg text-white bg-orange-500 hover:bg-orange-600 font-semibold">
+                    Yes, Submit
+                </button>
+            </div>
+        </div>
+    </div>
+<script>
+    const serviceForm = document.getElementById('serviceRequestForm');
+    const modal = document.getElementById('confirmationModal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const confirmBtn = document.getElementById('confirmBtn');
+
+    openModalBtn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    });
+
+    const closeModal = () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    };
+
+    cancelBtn.addEventListener('click', closeModal);
+    confirmBtn.addEventListener('click', () => {
+        // When user confirms, submit the form
+        serviceForm.submit();
+    });
+</script>
 </body>
+
 </html>
