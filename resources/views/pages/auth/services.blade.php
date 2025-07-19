@@ -72,7 +72,7 @@
 
     <div class="buttons-container">
         <a href="{{ route('service.request.create') }}" class="service-btn">Grab Your Service</a>
-        <a href="{{route('register')}}" class="service-btn">Post Your Event</a>
+        <a href="{{route('login')}}" class="service-btn">Post Your Event</a>
     </div>
 
 </body>
