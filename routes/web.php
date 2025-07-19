@@ -5,10 +5,15 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AuthController::class, 'showLoginForm']);
+Route::get('/', [AuthController::class, 'index']);
+Route::get('services', [AuthController::class, 'index'])->name('services');
+Route::get('/service-request', [ServicesController::class, 'showRequestForm'])->name('service.request.create');
+Route::post('/service-request', [ServicesController::class, 'store'])->name('service.request.store');
+Route::get('/login', [AuthController::class, 'showLoginForm']);
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('login', [AuthController::class, 'login']);
 Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');

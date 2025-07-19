@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\DB; // <-- Import DB for transactions
 
 class AuthController extends Controller
 {
+
+    public function index()
+    {
+        return view('pages.auth.services');
+    }
+
     public function showLoginForm()
     {
         return view('pages.auth.login');
