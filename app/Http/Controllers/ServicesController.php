@@ -10,34 +10,58 @@ use Illuminate\Support\Facades\Log;
 
 class ServicesController extends Controller
 {
+    public function services()
+    {
+        if (auth()->user()->role == 'Admin') {
+            $services = ServiceRequest::latest()->get();
+            return view('pages.services.services', compact('services'));
+        } else {
+            return view('pages.services.index');
+        }
+    }
+
+    public function services_create()
+    {
+        return view('pages.services.create');
+    }
+
     public function showRequestForm()
     {
         return view('pages.serivices-request');
     }
 
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'name'      => 'required|string|max:255',
-        'email'     => 'required|email|max:255',
-        'club'      => 'nullable|string|max:255',
-        'location'  => 'nullable|string|max:255',
-        'services'  => 'required|array',
-    ]);
+    {
+        $user = auth()->user();
 
-    $serviceRequest = ServiceRequest::create($validatedData);
+        $validatedData = $request->validate([
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|max:255',
+            'club'      => 'nullable|string|max:255',
+            'location'  => 'nullable|string|max:255',
+            'services'  => 'required|array',
+        ]);
 
-    try {
-        Mail::to($serviceRequest->email)->send(new ServiceRequestConfirmation($serviceRequest));
-        
-        return redirect()->route('service.request.create')
-            ->with('success', 'Your request was submitted and a confirmation email has been sent!');
+        $serviceRequest = ServiceRequest::create($validatedData);
 
-    } catch (\Exception $e) {
-        Log::error('Email sending failed: ' . $e->getMessage());
-
-        return redirect()->route('service.request.create')
-            ->with('error', 'Your request was saved, but the confirmation email could not be sent. Please contact support.');
+        try {
+            Mail::to($serviceRequest->email)->send(new ServiceRequestConfirmation($serviceRequest));
+            if ($user->role) {
+                return redirect()->route('admin.services')
+                    ->with('success', 'Your request was submitted and a confirmation email has been sent!');
+            } else {
+                return redirect()->route('service.request.create')
+                    ->with('success', 'Your request was submitted and a confirmation email has been sent!');
+            }
+        } catch (\Exception $e) {
+            Log::error('Email sending failed: ' . $e->getMessage());
+            if ($user->role) {
+                return redirect()->route('admin.services')
+                    ->with('success', 'Your request was submitted and a confirmation email has been sent!');
+            } else {
+                return redirect()->route('service.request.create')
+                    ->with('success', 'Your request was submitted and a confirmation email has been sent!');
+            }
+        }
     }
-}
 }

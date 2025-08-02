@@ -28,7 +28,11 @@ Route::post('reset-password', [ForgotPasswordController::class, 'reset'])->name(
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    //services
+    Route::get('/admin-services',  [ServicesController::class, 'services'])->name('admin.services');
+    Route::get('/admin-create-services',  [ServicesController::class, 'services_create'])->name('admin.create.services');
 
+    // events
     Route::get('/events', [EventController::class, 'index'])->name('events.index');
     Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
