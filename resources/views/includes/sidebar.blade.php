@@ -131,6 +131,12 @@
         <span class="text-sm md:text-base">Events</span>
       </a>
       @endif
+      @if(view_permission('services'))
+      <a href="{{ route('admin.services') }}" class="sidebar-link flex items-center w-full px-3 py-2 md:px-4 md:py-3 rounded-lg text-gray-700 hover:bg-orange-100 hover:text-orange-600 transition-all duration-200 group {{ request()->routeIs('events.*') ? 'active' : '' }}">
+        <i class="fas fa-calendar-check mr-2 md:mr-3 text-orange-500 group-hover:text-orange-600 text-sm md:text-base"></i>
+        <span class="text-sm md:text-base">Services</span>
+      </a>
+      @endif
     </nav>
   </aside>
 </div>

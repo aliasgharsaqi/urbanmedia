@@ -70,6 +70,7 @@ function view_permission($page_name)
                 case 'index':
                 case 'clubs':
                 case 'events':
+                case 'services':
                     return true;
                 default:
                     return false;
@@ -79,6 +80,7 @@ function view_permission($page_name)
             switch ($page_name) {
                 case 'index':
                 case 'events':
+                case 'services':
                     return true;
                 default:
                     return false;
