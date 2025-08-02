@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email');
+            $table->string('phone');
             $table->string('club')->nullable();
             $table->string('location')->nullable();
             $table->json('services');

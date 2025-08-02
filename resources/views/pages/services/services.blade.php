@@ -14,6 +14,7 @@
                     <th class="px-6 py-4">#</th>
                     <th class="px-6 py-4">Full Name</th>
                     <th class="px-6 py-4">Email</th>
+                    <th class="px-6 py-4">Phone No</th>
                     <th class="px-6 py-4">Club</th>
                     <th class="px-6 py-4">Location</th>
                     <th class="px-6 py-4">Services</th>
@@ -25,6 +26,7 @@
                     <td class="px-6 ">{{ ++$key }}</td>
                     <td class="px-6 ">{{ $service->name }}</td>
                     <td class="px-6 ">{{ $service->email }}</td>
+                    <td class="px-6 ">{{ $service->phone }}</td>
                     <td class="px-6 ">{{ $service->club }}</td>
                     <td class="px-6 ">{{ $service->location }}</td>
                     <td class="px-6 ">
