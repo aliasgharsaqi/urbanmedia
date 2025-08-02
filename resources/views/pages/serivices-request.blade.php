@@ -19,13 +19,13 @@
     <div class="w-full max-w-3xl p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200">
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Request Our Services 🚀</h2>
         @if (session('success'))
-            <div class="mb-4 p-4 text-sm font-medium text-green-800 bg-green-100 rounded-lg" role="alert">
-                {{ session('success') }}
-            </div>
+        <div class="mb-4 p-4 text-sm font-medium text-green-800 bg-green-100 rounded-lg" role="alert">
+            {{ session('success') }}
+        </div>
         @elseif (session('error'))
-            <div class="mb-4 p-4 text-sm font-medium text-red-800 bg-red-100 rounded-lg" role="alert">
-                {{ session('error') }}
-            </div>
+        <div class="mb-4 p-4 text-sm font-medium text-red-800 bg-red-100 rounded-lg" role="alert">
+            {{ session('error') }}
+        </div>
         @endif
         <form id="serviceRequestForm" method="POST" action="{{ route('service.request.store') }}">
             @csrf
@@ -100,29 +100,48 @@
             </div>
         </div>
     </div>
-<script>
-    const serviceForm = document.getElementById('serviceRequestForm');
-    const modal = document.getElementById('confirmationModal');
-    const openModalBtn = document.getElementById('openModalBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const confirmBtn = document.getElementById('confirmBtn');
+    <script>
+        const serviceForm = document.getElementById('serviceRequestForm');
+        const modal = document.getElementById('confirmationModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
 
-    openModalBtn.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    });
+        openModalBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        });
 
-    const closeModal = () => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    };
+        const closeModal = () => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        };
 
-    cancelBtn.addEventListener('click', closeModal);
-    confirmBtn.addEventListener('click', () => {
-        // When user confirms, submit the form
-        serviceForm.submit();
-    });
-</script>
+        cancelBtn.addEventListener('click', closeModal);
+        confirmBtn.addEventListener('click', () => {
+            // When user confirms, submit the form
+            serviceForm.submit();
+        });
+    </script>
+
+    <!-- Floating WhatsApp Button-->
+    <style>
+        @keyframes pulsing {
+            to {
+                box-shadow: 0 0 0 30px rgba(66, 219, 135, 0);
+            }
+        }
+    </style>
+    <div style="position: fixed; bottom: 30px; right: 30px; width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;">
+        <a target="_blank" href="https://wa.me/923000000000" style="text-decoration: none;">
+            <div style=" background-color: #42db87; color: #fff; width: 60px; height: 60px; font-size: 30px; border-radius: 50%; text-align: center; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 0 #42db87; animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1); transition: all 300ms ease-in-out;">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+        </a>
+        <p style="margin-top: 8px; color: #707070; font-size: 13px;">Talk to us?</p>
+    </div>
+
+
 </body>
 
 </html>

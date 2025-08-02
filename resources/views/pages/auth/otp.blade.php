@@ -2,187 +2,224 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Travel De Mentor</title>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" /> -->
-    <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css" />
-    <!-- <script src="https://kit.fontawesome.com/c35c4a5799.js" crossorigin="anonymous"></script> -->
-    <link rel="stylesheet" href="assets/font-web/css/all.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel De Mentor</title>
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" /> -->
+  <link rel="stylesheet" href="assets/dist/css/bootstrap.min.css" />
+  <!-- <script src="https://kit.fontawesome.com/c35c4a5799.js" crossorigin="anonymous"></script> -->
+  <link rel="stylesheet" href="assets/font-web/css/all.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
-    <style>
-        /*
+
+  <script>
+    if (window.history.replaceState) {
+      window.history.replaceState(null, null, window.location.href);
+    }
+  </script>
+  <style>
+    /*
         *
         * ==========================================
         * CUSTOM UTIL CLASSES
         * ==========================================
         *
         */
-        .navbar-brand {
-            font-family: "Poppins", sans-serif;
-            font-style: normal !important;
-            font-weight: 700 !important;
-            font-size: 45px !important;
-            line-height: 68px !important;
-            color: #3a0ca3 !important;
-        }
+    .navbar-brand {
+      font-family: "Poppins", sans-serif;
+      font-style: normal !important;
+      font-weight: 700 !important;
+      font-size: 45px !important;
+      line-height: 68px !important;
+      color: #3a0ca3 !important;
+    }
 
-        .border-md {
-            border-width: 2px;
-        }
+    .border-md {
+      border-width: 2px;
+    }
 
-        .sign_up {
-            box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25) !important;
-            border-radius: 32px !important;
-        }
+    .sign_up {
+      box-shadow: 0px 4px 26px rgba(0, 0, 0, 0.25) !important;
+      border-radius: 32px !important;
+    }
 
-        /*
+    /*
         *
         * ==========================================
         * FOR DEMO PURPOSES
         * ==========================================
         *
         */
-        input,
-        .input-group-text {
-            /*border-top: 0px !important;*/
-            /*border-left: 0px !important;*/
-            /*border-right: 0px !important;*/
-            outline: 0px !important;
-        }
+    input,
+    .input-group-text {
+      /*border-top: 0px !important;*/
+      /*border-left: 0px !important;*/
+      /*border-right: 0px !important;*/
+      outline: 0px !important;
+    }
 
-        .form-control:not(select) {
-            padding: 1.2rem 0.5rem;
-        }
+    .form-control:not(select) {
+      padding: 1.2rem 0.5rem;
+    }
 
-        select.form-control {
-            height: 42px;
-            padding-left: 0.5rem;
-        }
+    select.form-control {
+      height: 42px;
+      padding-left: 0.5rem;
+    }
 
-        option,
-        .form-control::placeholder {
-            color: #ccc;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
+    option,
+    .form-control::placeholder {
+      color: #ccc;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
 
-        option {
-            color: #000000;
-            font-weight: bold;
-            font-size: 1rem;
-        }
+    option {
+      color: #000000;
+      font-weight: bold;
+      font-size: 1rem;
+    }
 
-        .form-control:focus {
-            box-shadow: none;
-        }
+    .form-control:focus {
+      box-shadow: none;
+    }
 
-        .contact {
-            color: #212B60 !important;
-        }
+    .contact {
+      color: #212B60 !important;
+    }
 
-        .text-warning.contact:hover {
-            color: #184A45 !important;
-        }
+    .text-warning.contact:hover {
+      color: #184A45 !important;
+    }
 
-        #btn_user_login {
-            background-color: #212B60;
-            /* Initial color */
-            transition: background-color 0.3s ease;
-            /* Smooth transition */
-        }
+    #btn_user_login {
+      background-color: #212B60;
+      /* Initial color */
+      transition: background-color 0.3s ease;
+      /* Smooth transition */
+    }
 
-        #btn_user_login:hover {
-            background-color: rgb(15, 26, 76);
-            /* Change to a darker blue on hover */
-        }
+    #btn_user_login:hover {
+      background-color: rgb(15, 26, 76);
+      /* Change to a darker blue on hover */
+    }
 
-        #resend-otp button {
-            color: #212B60;
-        }
-    </style>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">  -->
+    #resend-otp button {
+      color: #212B60;
+    }
+  </style>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">  -->
 </head>
 
 <body style="overflow-x: hidden;">
-    <div class="container-fluid mx-2" style="margin-top: 20px !important;">
-        <div class="row">
-            <div class="col-12 col-md-12 col-lg-6 ml-auto" style="height: 90vh !important; width: 100%;">
-                <div>
-                    <!-- Navbar Brand -->
-                    <a class="navbar-brand">
-                        <img src="{{asset('assets/images/traveldementor.jpeg')}}" width="350px" height="100px" alt="">
-                    </a>
-                </div>
-                <div class="row mt-4">
-                    <form action="login" method="post" class="w-100">
-                        @csrf
-                        <div class="row">
-                            <div class="w-100" style="padding-left: 15px;">
-                                <p style="font-weight: 500; font-size: 30px; line-height: 45px; color: #000000 !important;">
-                                    Change your Password
-                                </p>
-                            </div>
-                            <!-- Email Address -->
-                            <div class="w-100" style="padding-left: 15px;">
-                                <p style="font-weight: 400; font-size: 16px; line-height: 24px; color: #000000; margin-bottom: 0px !important;">
-                                    Provide us your email if you want to change your password<br>
-                                </p>
-                                <br>
-                            </div>
-                            <div class="input-group col-lg-12 mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0 border-left-0 border-top-0 border-dark" style="border-radius: 0px !important;">
-                                        <i class="fa-solid fa-envelope"></i>
-                                    </span>
-                                </div>
-                                <input id="email" type="email" name="email" placeholder="Enter your Email Address" class="border-top-0 border-right-0 border-dark form-control bg-white border-left-0 border-md" style="border-radius: 0px !important;" value="{{ old('email') ?? ''}}" />
-                                <div class="col-lg-12">
-                                    <div class="validation-error-email"></div>
-                                </div>
-                            </div>
-                            <!-- OTP -->
-                            <div class="input-group col-lg-12 mb-2">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-white px-4 border-md border-right-0 border-left-0 border-top-0 border-dark" style="border-radius: 0px !important;">
-                                        <i class="fa-solid fa-code"></i>
-                                    </span>
-                                </div>
-                                <input id="otp" type="text" name="otp" placeholder="Enter your OTP" class="border-top-0 border-right-0 form-control bg-white border-left-0 border-md border-dark" style="border-radius: 0px !important;" />
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="validation-error-otp"></div>
-                            </div>
-                            <!-- Submit Button -->
-                            <div class="form-group col-lg-12 mx-auto mb-0 d-flex justify-content-between mt-3">
-                                <!-- Resend OTP Button -->
-                                <button type="button" id="btn_resend_otp" class="font-weight-bold btn btn-light py-2 text-dark" name="resend">
-                                    Resend OTP
-                                </button>
-                                <!-- Next Button -->
-                                <button type="submit" id="btn_user_login" class="font-weight-bold sign_up btn btn-primary py-2 text-white flex-grow-1 ms-3" name="submit" style="max-width: 200px;">
-                                    <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
-                                    <span id="text">Next</span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!-- Image Section (Visible only on large screens) -->
-            <div class="col-md-5 col-lg-5 pr-lg-5 d-none d-lg-block mb-5 mb-md-0">
-                <div class="p-2 d-flex align-items-center justify-content-center" style="height: 90vh !important; border-radius: 15px;">
-                    <img class="img-fluid" src="{{ asset('assets/images/otp.png') }}" alt="banner image">
-                </div>
-            </div>
+  <div class="container-fluid mx-2" style="margin-top: 20px !important;">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-6 ml-auto" style="height: 90vh !important; width: 100%;">
+        <div>
+          <!-- Navbar Brand -->
+          <a class="navbar-brand">
+            <img src="{{asset('assets/images/traveldementor.jpeg')}}" width="350px" height="100px" alt="">
+          </a>
         </div>
+        <div class="row mt-4">
+          <form action="login" method="post" class="w-100">
+            @csrf
+            <div class="row">
+              <div class="w-100" style="padding-left: 15px;">
+                <p style="font-weight: 500; font-size: 30px; line-height: 45px; color: #000000 !important;">
+                  Change your Password
+                </p>
+              </div>
+              <!-- Email Address -->
+              <div class="w-100" style="padding-left: 15px;">
+                <p style="font-weight: 400; font-size: 16px; line-height: 24px; color: #000000; margin-bottom: 0px !important;">
+                  Provide us your email if you want to change your password<br>
+                </p>
+                <br>
+              </div>
+              <div class="input-group col-lg-12 mb-4">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white px-4 border-md border-right-0 border-left-0 border-top-0 border-dark" style="border-radius: 0px !important;">
+                    <i class="fa-solid fa-envelope"></i>
+                  </span>
+                </div>
+                <input id="email" type="email" name="email" placeholder="Enter your Email Address" class="border-top-0 border-right-0 border-dark form-control bg-white border-left-0 border-md" style="border-radius: 0px !important;" value="{{ old('email') ?? ''}}" />
+                <div class="col-lg-12">
+                  <div class="validation-error-email"></div>
+                </div>
+              </div>
+              <!-- OTP -->
+              <div class="input-group col-lg-12 mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white px-4 border-md border-right-0 border-left-0 border-top-0 border-dark" style="border-radius: 0px !important;">
+                    <i class="fa-solid fa-code"></i>
+                  </span>
+                </div>
+                <input id="otp" type="text" name="otp" placeholder="Enter your OTP" class="border-top-0 border-right-0 form-control bg-white border-left-0 border-md border-dark" style="border-radius: 0px !important;" />
+              </div>
+              <div class="col-lg-12">
+                <div class="validation-error-otp"></div>
+              </div>
+              <!-- Submit Button -->
+              <div class="form-group col-lg-12 mx-auto mb-0 d-flex justify-content-between mt-3">
+                <!-- Resend OTP Button -->
+                <button type="button" id="btn_resend_otp" class="font-weight-bold btn btn-light py-2 text-dark" name="resend">
+                  Resend OTP
+                </button>
+                <!-- Next Button -->
+                <button type="submit" id="btn_user_login" class="font-weight-bold sign_up btn btn-primary py-2 text-white flex-grow-1 ms-3" name="submit" style="max-width: 200px;">
+                  <div class="spinner-border spinner-border-sm text-white d-none" id="spinner"></div>
+                  <span id="text">Next</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- Image Section (Visible only on large screens) -->
+      <div class="col-md-5 col-lg-5 pr-lg-5 d-none d-lg-block mb-5 mb-md-0">
+        <div class="p-2 d-flex align-items-center justify-content-center" style="height: 90vh !important; border-radius: 15px;">
+          <img class="img-fluid" src="{{ asset('assets/images/otp.png') }}" alt="banner image">
+        </div>
+      </div>
     </div>
+  </div>
+  <!-- Floating WhatsApp Button-->
+  <style>
+    @keyframes pulsing {
+      to {
+        box-shadow: 0 0 0 30px rgba(66, 219, 135, 0);
+      }
+    }
+  </style>
+  <div style="position: fixed; bottom: 30px; right: 30px; width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;">
+    <a target="_blank" href="https://wa.me/923000000000" style="text-decoration: none;">
+      <div style=" background-color: #42db87; color: #fff; width: 60px; height: 60px; font-size: 30px; border-radius: 50%; text-align: center; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 0 #42db87; animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1); transition: all 300ms ease-in-out;">
+        <i class="fab fa-whatsapp"></i>
+      </div>
+    </a>
+    <p style="margin-top: 8px; color: #707070; font-size: 13px;">Talk to us?</p>
+  </div>
 
+  <!-- Floating WhatsApp Button-->
+  <style>
+    @keyframes pulsing {
+      to {
+        box-shadow: 0 0 0 30px rgba(66, 219, 135, 0);
+      }
+    }
+  </style>
+  <div style="position: fixed; bottom: 30px; right: 30px; width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;">
+    <a target="_blank" href="https://wa.me/923000000000" style="text-decoration: none;">
+      <div style=" background-color: #42db87; color: #fff; width: 60px; height: 60px; font-size: 30px; border-radius: 50%; text-align: center; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 0 #42db87; animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1); transition: all 300ms ease-in-out;">
+        <i class="fab fa-whatsapp"></i>
+      </div>
+    </a>
+    <p style="margin-top: 8px; color: #707070; font-size: 13px;">Talk to us?</p>
+  </div>
+
+
+</body>
 
 </html>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
