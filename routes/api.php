@@ -14,6 +14,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/verify-otp', [ForgotPasswordController::class, 'verifyOtp']);
     Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword']);
 
+    Route::get('/events', [EventController::class, 'index'])->name('api.v1.events.index');
+    
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/user', fn(Request $request) => $request->user());
@@ -26,7 +28,6 @@ Route::prefix('v1')->group(function () {
         Route::delete('/clubs/{club}', [ClubController::class, 'destroy'])->name('api.v1.clubs.destroy');
 
         // Explicit Event Routes
-        Route::get('/events', [EventController::class, 'index'])->name('api.v1.events.index');
         Route::post('/events', [EventController::class, 'store'])->name('api.v1.events.store');
         Route::get('/events/{event}', [EventController::class, 'show'])->name('api.v1.events.show');
         Route::put('/events/{event}', [EventController::class, 'update'])->name('api.v1.events.update');
