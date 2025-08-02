@@ -46,7 +46,7 @@ class ServicesController extends Controller
 
         try {
             Mail::to($serviceRequest->email)->send(new ServiceRequestConfirmation($serviceRequest));
-            if ($user->role) {
+            if ($user) {
                 return redirect()->route('admin.services')
                     ->with('success', 'Your request was submitted and a confirmation email has been sent!');
             } else {
@@ -55,7 +55,7 @@ class ServicesController extends Controller
             }
         } catch (\Exception $e) {
             Log::error('Email sending failed: ' . $e->getMessage());
-            if ($user->role) {
+            if ($user) {
                 return redirect()->route('admin.services')
                     ->with('success', 'Your request was submitted and a confirmation email has been sent!');
             } else {
