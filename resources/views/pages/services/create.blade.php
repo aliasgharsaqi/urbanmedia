@@ -76,6 +76,12 @@
             </div>
 
             <div class="mb-5">
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Ph No:</label>
+                <input type="text" id="phone" name="phone" placeholder="+917000000" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required value="{{ old('phone') }}" />
+                @error('phone')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+            </div>
+
+            <div class="mb-5">
                 <label for="club" class="block text-sm font-medium text-gray-700 mb-1">Club / Organization Name</label>
                 <input type="text" id="club" name="club" placeholder="Your Club Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" value="{{ old('club') }}" />
                 @error('club')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror

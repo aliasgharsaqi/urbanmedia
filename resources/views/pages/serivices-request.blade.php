@@ -42,6 +42,12 @@
             </div>
 
             <div class="mb-5">
+                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Ph No:</label>
+                <input type="text" id="phone" name="phone" placeholder="+917000000" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" required value="{{ old('phone') }}" />
+                @error('phone')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
+            </div>
+
+            <div class="mb-5">
                 <label for="club" class="block text-sm font-medium text-gray-700 mb-1">Club / Organization Name</label>
                 <input type="text" id="club" name="club" placeholder="Your Club Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500" value="{{ old('club') }}" />
                 @error('club')<p class="mt-1 text-sm text-red-500">{{ $message }}</p>@enderror
@@ -133,7 +139,7 @@
         }
     </style>
     <div style="position: fixed; bottom: 30px; right: 30px; width: 100px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 1000;">
-        <a target="_blank" href="https://wa.me/923000000000" style="text-decoration: none;">
+        <a target="_blank" href="https://wa.me/917845667204" style="text-decoration: none;">
             <div style=" background-color: #42db87; color: #fff; width: 60px; height: 60px; font-size: 30px; border-radius: 50%; text-align: center; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 0 #42db87; animation: pulsing 1.25s infinite cubic-bezier(0.66, 0, 0, 1); transition: all 300ms ease-in-out;">
                 <i class="fab fa-whatsapp"></i>
             </div>

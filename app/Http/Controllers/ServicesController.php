@@ -37,6 +37,7 @@ class ServicesController extends Controller
         $validatedData = $request->validate([
             'name'      => 'required|string|max:255',
             'email'     => 'required|email|max:255',
+            'phone'     => 'required|string',
             'club'      => 'nullable|string|max:255',
             'location'  => 'nullable|string|max:255',
             'services'  => 'required|array',
