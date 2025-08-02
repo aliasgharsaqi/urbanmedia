@@ -9,13 +9,26 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB; // <-- Import DB for transactions
+use App\Models\Event;
 
 class AuthController extends Controller
 {
 
     public function index()
     {
-        return view('pages.auth.services');
+        $user = auth()->user() ?? '';
+
+        if ($user ?? '') {
+            if ($user->role == 'Admin') {
+                $events = Event::latest()->get();
+            } else {
+                $events = Event::where('user_id', $user->id)->latest()->get();
+            }
+
+            return view('pages.dashboard', compact('events'));
+        } else {
+            return view('pages.auth.services');
+        }
     }
 
     public function showLoginForm()
