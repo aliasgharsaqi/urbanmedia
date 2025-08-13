@@ -16,11 +16,11 @@ class AdminUserSeeder extends Seeder
         // Using firstOrCreate to avoid creating duplicate admins if seeder is run multiple times
         User::firstOrCreate(
             [
-                'email' => 'admin@gmail.com' // The unique field to check for
+                'email' => 'admin@example.com' // The unique field to check for
             ],
             [
                 'name' => 'Admin',
-                'password' => Hash::make('1234567890'), // Set a default password
+                'password' => Hash::make('password'), // Set a default password
                 'role' => 'Admin', // Assign the 'Admin' role as per your helpers.php
                 'status' => '1', // Set status to '1' for active
                 'email_verified_at' => now(), // Pre-verify the admin's email
