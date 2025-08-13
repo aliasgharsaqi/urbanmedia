@@ -37,6 +37,9 @@
                     <td class="px-4 sm:px-6 py-3">{{ \Carbon\Carbon::parse($event->date)->format('M d, Y') }}</td>
                     <td class="px-4 sm:px-6 py-3">{{ $event->entry ?? '' }}</td>
                     <td class="px-4 sm:px-6 py-3 text-center space-y-2 sm:space-x-2 sm:space-y-0">
+                        <a href="{{ route('events.show', $event) }}" class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 hover:bg-blue-200 font-medium text-xs sm:text-sm rounded-full">
+                            <i class="fas fa-eye"></i> <span></span>
+                        </a>
                         <a href="{{ route('events.edit', $event) }}" class="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 hover:bg-blue-200 font-medium text-xs sm:text-sm rounded-full">
                             <i class="fas fa-edit"></i> <span>Edit</span>
                         </a>
