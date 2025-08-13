@@ -24,7 +24,6 @@ class EventController extends Controller
         try {
             // Eager load relationships to prevent N+1 query issues
             $events = Event::with(['user', 'categories'])->latest()->get();
-            dd($events->all());
             return $events->isEmpty()
                 ? $this->emptyResponse('No events found.')
                 : $this->successResponse(EventResource::collection($events), 'Events retrieved successfully.');
