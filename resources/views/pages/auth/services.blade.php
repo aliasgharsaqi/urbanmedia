@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HighHape Landing Page</title>
+  <title>Urban Night Media Landing Page</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     body {
@@ -249,7 +249,7 @@
         Better.
       </h1>
       <p>
-        HighHape has everything you need to make your event successful.
+        Urban Night Media has everything you need to make your event successful.
         Advanced Step by Step Event Creation. Sell and track, Promote through
         all possible channels.
       </p>
@@ -280,7 +280,7 @@
 
   <!-- Features Section -->
   <section class="features_faiz">
-    <h2>WITH HIGHHAPE YOU CAN</h2>
+    <h2>WITH Urban Night Media YOU CAN</h2>
     <div class="feature-grid_faiz feature-grid-top_faiz">
       <div class="feature-card_faiz">
         <i class="fa-solid fa-ticket"></i>
