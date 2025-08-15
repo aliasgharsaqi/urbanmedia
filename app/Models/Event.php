@@ -10,10 +10,17 @@ class Event extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'user_id',
         'event_image',
         'heading',
+        'venue',
+        'city',
         'date',
         'time',
         'end_date',
@@ -23,18 +30,26 @@ class Event extends Model
         'expected_guest',
         'address',
         'entry',
+        'price',
         'desc',
         'youtube_url',
         'special_details',
-        'artist_performer', // New field
+        'artist_performer',
         'status',
+        'terms_and_conditions',
     ];
 
+    /**
+     * Get the user that owns the event.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
     
+    /**
+     * The categories that belong to the event.
+     */
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'category_event');

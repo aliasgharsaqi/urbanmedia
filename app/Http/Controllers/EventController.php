@@ -12,13 +12,11 @@ class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $user = auth()->user();
-        // Eager load categories to prevent N+1 query issues
+        // Admins see all events, other users only see their own.
         if ($user->role == 'Admin') {
             $events = Event::with('categories', 'user')->latest()->get();
         } else {
@@ -29,8 +27,6 @@ class EventController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -40,30 +36,37 @@ class EventController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        
         $validatedData = $request->validate([
-            'event_image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // --- REQUIRED FIELDS based on migrations ---
             'heading'           => 'required|string|max:255',
             'date'              => 'required|date',
             'time'              => 'required',
-            'end_date'          => 'required|date|after_or_equal:date',
-            'end_time'          => 'required',
-            'occurrence_type'   => 'required|string',
-            'event_access_type' => 'required|string|in:paid,rsvp,private',
             'expected_guest'    => 'required|string',
-            'entry'             => 'required|string',
             'address'           => 'required|string',
+            'entry'             => 'required|string',
+            'event_image'       => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // FIX: Made required as per create_events_table migration.
+            'categories'        => 'required|array',
+
+            // --- OPTIONAL (NULLABLE) FIELDS based on migrations ---
+            'end_date'          => 'nullable|date|after_or_equal:date', // FIX: Changed to nullable to match migration.
+            'end_time'          => 'nullable', // FIX: Changed to nullable to match migration.
+            'venue'             => 'nullable|string|max:255',
+            'city'              => 'nullable|string|max:255',
+            'price'             => 'nullable|numeric',
             'desc'              => 'nullable|string',
             'youtube_url'       => 'nullable|url',
             'special_details'   => 'nullable|string|max:255',
             'artist_performer'  => 'nullable|string|max:255',
-            'categories'        => 'required|array',
-            'status'            => 'required|string|in:draft,published',
+            'terms_and_conditions' => 'nullable|string', // ADDED: This field was missing from validation.
+
+            // --- FIELDS WITH DEFAULTS (but good to validate) ---
+            'occurrence_type'   => 'sometimes|string',
+            'event_access_type' => 'sometimes|string', // ADDED: This field was missing from validation.
+            'status'            => 'sometimes|string|in:draft,published',
         ]);
 
         if ($request->hasFile('event_image')) {
@@ -74,17 +77,16 @@ class EventController extends Controller
         
         $event = Event::create($validatedData);
 
-        // Attach the selected categories
-        $event->categories()->sync($request->categories);
+        // Sync categories if they are provided.
+        if ($request->has('categories')) {
+            $event->categories()->sync($request->categories);
+        }
 
         return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
      */
     public function show(Event $event)
     {
@@ -94,86 +96,86 @@ class EventController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
      */
     public function edit(Event $event)
     {
-        // Authorization check
+        // Ensure only the event owner or an admin can edit.
         if (auth()->id() !== $event->user_id && auth()->user()->role !== 'Admin') {
             abort(403, 'UNAUTHORIZED ACTION');
         }
 
         $categories = Category::orderBy('name')->get();
-        $event->load('categories');
+        $event->load('categories'); // Eager load categories for the event.
         return view('pages.events.edit', compact('event', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Event $event)
     {
-        // Authorization check
+        // Ensure only the event owner or an admin can update.
         if (auth()->id() !== $event->user_id && auth()->user()->role !== 'Admin') {
             abort(403, 'UNAUTHORIZED ACTION');
         }
 
         $validatedData = $request->validate([
-            'event_image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // --- REQUIRED FIELDS ---
             'heading'           => 'required|string|max:255',
             'date'              => 'required|date',
             'time'              => 'required',
-            'end_date'          => 'required|date|after_or_equal:date',
-            'end_time'          => 'required',
-            'occurrence_type'   => 'required|string',
-            'event_access_type' => 'required|string|in:paid,rsvp,private',
             'expected_guest'    => 'required|string',
-            'entry'             => 'required|string',
             'address'           => 'required|string',
+            'entry'             => 'required|string',
+            'categories'        => 'required|array',
+
+            // --- OPTIONAL (NULLABLE) FIELDS ---
+            'event_image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Correctly nullable for updates.
+            'end_date'          => 'nullable|date|after_or_equal:date', // FIX: Changed to nullable.
+            'end_time'          => 'nullable', // FIX: Changed to nullable.
+            'venue'             => 'nullable|string|max:255',
+            'city'              => 'nullable|string|max:255',
+            'price'             => 'nullable|numeric',
             'desc'              => 'nullable|string',
             'youtube_url'       => 'nullable|url',
             'special_details'   => 'nullable|string|max:255',
             'artist_performer'  => 'nullable|string|max:255',
-            'categories'        => 'required|array',
-            'status'            => 'required|string|in:draft,published',
+            'terms_and_conditions' => 'nullable|string', // ADDED: This field was missing.
+
+            // --- FIELDS WITH DEFAULTS ---
+            'occurrence_type'   => 'sometimes|string',
+            'event_access_type' => 'sometimes|string', // ADDED: This field was missing.
+            'status'            => 'sometimes|string|in:draft,published',
         ]);
 
         if ($request->hasFile('event_image')) {
-            // Delete the old image if it exists
+            // Delete old image if it exists
             if ($event->event_image) {
                 Storage::disk('public')->delete($event->event_image);
             }
+            // Store the new image
             $validatedData['event_image'] = $request->file('event_image')->store('event_images', 'public');
         }
 
         $event->update($validatedData);
 
-        // Sync the categories relationship
-        $event->categories()->sync($request->categories);
+        // Sync categories, ensuring it handles cases where no categories are selected.
+        $event->categories()->sync($request->categories ?? []);
 
         return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Event $event)
     {
-        // Authorization check
+        // Ensure only the event owner or an admin can delete.
         if (auth()->id() !== $event->user_id && auth()->user()->role !== 'Admin') {
             abort(403, 'UNAUTHORIZED ACTION');
         }
 
-        // Delete the associated image from storage if it exists
+        // Delete the associated image from storage.
         if ($event->event_image) {
             Storage::disk('public')->delete($event->event_image);
         }
