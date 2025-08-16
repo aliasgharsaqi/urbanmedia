@@ -283,80 +283,70 @@
     <h2>WITH Urban Night Media YOU CAN</h2>
     <div class="feature-grid_faiz feature-grid-top_faiz">
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-ticket"></i>
-        <h4>Create Events & Sell Tickets</h4>
+      <i class="fa-solid fa-bullhorn"></i>
+      <h4>Event Promotions</h4>
         <p>
-          Create events instantly and get best tools to help you sell tickets,
-          accept bookings, collect registrations.
+        We promote your party across high traffic channals including Instagram, WhatsApp, and our website.
         </p>
       </div>
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-bullhorn"></i>
-        <h4>Complete Marketing Suite</h4>
+      <i class="fa-solid fa-clapperboard"></i>
+      <h4>Content Creation & Reels</h4>
         <p>
-          Reach out to customers via our advanced marketing tools. Send SMS,
-          Emails, and more.
+        We produce viral Instagram Reels, posters, stories, and teaser videos to boost pre-event buzz.
         </p>
       </div>
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-bullseye"></i>
-        <h4>Promote Events Online</h4>
+      <i class="fa-solid fa-ticket"></i>
+      <h4>Ticketing & Guestlist</h4>
         <p>
-          Do extensive digital marketing with our premium plans. Be visible in
-          Google, social media and more.
+        We help with linking ticket platforms, increasing sales, and providing analytics support.
         </p>
       </div>
     </div>
 
     <div class="feature-grid_faiz feature-grid-bottom_faiz" style="margin-top: 30px">
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-chart-line"></i>
-        <h4>SEO Optimized</h4>
+      <i class="fa-solid fa-handshake"></i>
+      <h4>Artist & Influencer Collabs</h4>
         <p>
-          Rank #1 on Google! Get more traffic organically with our optimized
-          event pages.
+        Locking for Djs, Influencers, or photographers? We connect you whit the right talent.
         </p>
       </div>
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-sack-dollar"></i>
-        <h4>Get Your Money Fast</h4>
+      <i class="fa-solid fa-chart-column"></i>
+      <h4>Stats on the Go</h4>
         <p>
-          We provide instant payout options for your events. Never worry about
-          cash flow again.
-        </p>
+        Track bookings, visibility, and popularity with real-time stats, graphs, and charts—helping you optimize to 100%.    </p>
       </div>
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-microchip"></i>
-        <h4>Highly Advanced Technology</h4>
+      <i class="fa-solid fa-envelope"></i>
+      <h4>Never Miss a Booking</h4>
         <p>
-          Use our advanced tools for bookings and analytics. The best event
-          tech is here.
+        Instant email and SMS alerts keep you updated on every booking. Manage inventory effortlessly with real-time status updates.
         </p>
       </div>
     </div>
     <div class="feature-grid_faiz feature-grid-bottom_faiz" style="margin-top: 30px">
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-chart-line"></i>
-        <h4>SEO Optimized</h4>
+      <i class="fa-solid fa-gear"></i>
+      <h4>Advanced Technology</h4>
         <p>
-          Rank #1 on Google! Get more traffic organically with our optimized
-          event pages.
+        Cutting-edge booking and event analytics with smart re-marketing tools. Truly, our technology has Ape-Inside.
         </p>
       </div>
       <div class="feature-card_faiz">
-        <i class="fa-solid fa-sack-dollar"></i>
-        <h4>Get Your Money Fast</h4>
+      <i class="fa-solid fa-globe"></i>
+      <h4>Get the Word Out</h4>
         <p>
-          We provide instant payout options for your events. Never worry about
-          cash flow again.
+        Maximize visibility with our advanced marketing tools. Boost popularity and let the turnout follow.
         </p>
       </div>
       <div class="feature-card_faiz">
         <i class="fa-solid fa-microchip"></i>
-        <h4>Highly Advanced Technology</h4>
+        <h4>Customize Your Events</h4>
         <p>
-          Use our advanced tools for bookings and analytics. The best event
-          tech is here.
+        Choose only what you need from the promotion plan. Pay smarter, stay efficient, and maximize your budget.
         </p>
       </div>
     </div>
