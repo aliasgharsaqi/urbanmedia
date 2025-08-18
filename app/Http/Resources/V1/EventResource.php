@@ -8,17 +8,17 @@ class EventResource extends JsonResource
 {
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'eventName' => $this->heading,
-            'clientName' => $this->client_name,
-            'clientEmail' => $this->email,
-            'eventDate' => $this->date,
-            'eventTime' => $this->time,
-            'rate' => $this->rate,
-            'address' => $this->address,
-            'entryType' => $this->entry,
-            'otherInfo' => $this->others,
-        ];
+        return array_merge(
+            $this->resource->toArray(), // all attributes from Event
+
+            [
+                    'user' => $this->whenLoaded('user', function () {
+                    return $this->user->toArray(); // raw user array
+                }),
+                'categories' => $this->whenLoaded('categories', function () {
+                    return $this->categories->toArray(); // raw categories array
+                }),
+            ]
+        );
     }
 }
