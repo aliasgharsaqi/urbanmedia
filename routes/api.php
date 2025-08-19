@@ -30,7 +30,6 @@ Route::prefix('v1')->group(function () {
 
         // Explicit Event Routes
         Route::post('/events', [EventController::class, 'store'])->name('api.v1.events.store');
-        Route::get('/events/{event}', [EventController::class, 'show'])->name('api.v1.events.show');
         Route::put('/events/{event}', [EventController::class, 'update'])->name('api.v1.events.update');
         Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('api.v1.events.destroy');
     });
