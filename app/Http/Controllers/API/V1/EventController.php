@@ -32,6 +32,18 @@ class EventController extends Controller
         }
     }
 
+    public function show($event)
+    {
+        try {
+            $events = Event::with(['user', 'categories'])->where('id',$event)->latest()->get();
+            return $events->isEmpty()
+                ? $this->emptyResponse('No events found.')
+                : $this->successResponse(EventResource::collection($events), 'Events retrieved successfully.');
+        } catch (\Exception $e) {
+            return $this->errorResponse('Could not retrieve events.', 500, $e);
+        }
+    }
+
     /**
      * Store a newly created event in storage.
      */
@@ -70,7 +82,7 @@ class EventController extends Controller
 
             // Assuming API authentication is used (e.g., Sanctum)
             $data['user_id'] = auth()->id();
-            
+
             $event = Event::create($data);
             $event->categories()->sync($request->categories);
 
@@ -86,16 +98,7 @@ class EventController extends Controller
     /**
      * Display the specified event.
      */
-    public function show(Event $event)
-    {
-        try {
-            // Eager load relationships for the single event view
-            $event->load('user', 'categories');
-            return $this->successResponse(new EventResource($event), 'Event retrieved successfully.');
-        } catch (\Exception $e) {
-            return $this->errorResponse('Could not retrieve event details.', 500, $e);
-        }
-    }
+
 
     /**
      * Update the specified event in storage.
@@ -141,7 +144,7 @@ class EventController extends Controller
             if ($request->has('categories')) {
                 $event->categories()->sync($request->categories);
             }
-            
+
             $event->load('user', 'categories');
 
             return $this->successResponse(new EventResource($event), 'Event updated successfully.');

@@ -15,7 +15,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword']);
 
     Route::get('/events', [EventController::class, 'index'])->name('api.v1.events.index');
-    
+    Route::get('/events/{event}', [EventController::class, 'show'])->name('api.v1.events.show');
+
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/user', fn(Request $request) => $request->user());
